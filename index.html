@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MAWARTOTO - Result Converter</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(to bottom, #990000, #000);
+      color: #fff;
+      text-align: center;
+      padding: 30px;
+    }
+
+    .container {
+      background: #800000; /* warna merah marun */
+      border-radius: 15px;
+      padding: 25px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+    }
+
+    .logo {
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 18px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .inputs {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+    }
+
+    input[type="number"] {
+      width: 50px;
+      height: 50px;
+      border-radius: 8px;
+      border: 2px solid red;
+      background: #fff;
+      color: #000;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    input[type=number]::-webkit-outer-spin-button,
+    input[type=number]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    input[type=number] {
+      -moz-appearance: textfield;
+    }
+
+    .result-input {
+      width: 150px;
+      height: 60px;
+      border-radius: 10px;
+      border: 2px solid #ffd700;
+      background: #fff;
+      color: #000;
+      font-size: 30px;
+      font-weight: bold;
+      text-align: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- LOGO + HEADER disatukan dalam container -->
+    <div>
+      <img class="logo" src="https://mariterbang.io/download/9NncP12Y.png" alt="Header Logo" width="100"><br>
+      <img class="logo" src="https://mawartotosiap.com/assets/img/xj/logo.png?v=m7cww5rmyot3phud5e9m" alt="MAWARTOTO Logo" width="130">
+    </div>
+
+    <!-- Winning Numbers -->
+    <div class="section-title">Winning Numbers</div>
+    <div class="inputs">
+      <input type="number" id="num1">
+      <input type="number" id="num2">
+      <input type="number" id="num3">
+      <input type="number" id="num4">
+      <input type="number" id="num5">
+      <input type="number" id="num6">
+    </div>
+
+    <!-- Additional Number -->
+    <div class="section-title">Additional Number</div>
+    <div class="inputs">
+      <input type="number" id="additionalNum">
+    </div>
+
+    <!-- Result Singapore -->
+    <div class="section-title">Result Singapore</div>
+    <div class="inputs">
+      <input type="text" id="resultVal" class="result-input" readonly value="0000">
+    </div>
+  </div>
+
+  <!-- KONVERSI JS -->
+  <script>
+    function konversiTotoSGP() {
+      let numbers = [
+        parseInt(document.getElementById('num1').value),
+        parseInt(document.getElementById('num2').value),
+        parseInt(document.getElementById('num3').value),
+        parseInt(document.getElementById('num4').value),
+        parseInt(document.getElementById('num5').value),
+        parseInt(document.getElementById('num6').value)
+      ];
+      let additional = parseInt(document.getElementById('additionalNum').value);
+
+      if (numbers.includes(NaN) || isNaN(additional)) {
+        document.getElementById('resultVal').value = '0000';
+        return;
+      }
+
+      numbers.sort((a, b) => a - b);
+
+      let ribuan = (numbers[1] + numbers[2]) % 10;
+      let ratusan = (numbers[3] + numbers[4]) % 10;
+      let total = numbers.reduce((a, b) => a + b, 0);
+      total = (total * 2) - numbers[0] - numbers[5] + additional;
+      let duaDigit = total % 100;
+
+      let result = `${ribuan}${ratusan}${duaDigit.toString().padStart(2, '0')}`;
+      document.getElementById('resultVal').value = result;
+    }
+
+    document.querySelectorAll('input[type="number"]').forEach(input => {
+      input.addEventListener('input', konversiTotoSGP);
+    });
+  </script>
+</body>
+</html>
